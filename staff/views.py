@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from staff.serializers.staff_serializers import ProjectSerializer, DesignationSerializer, ServiceRecordSerializer, PromotionHistorySerializer, AchievementHistorySerializer, TaskLogSerializer, GrievanceSerializer, UserProjectSerializer
 from staff.models import *
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 # Create your views here.
@@ -9,6 +10,7 @@ from rest_framework import status
 
 class ProjectAPI(APIView):
     serializer_class = ProjectSerializer
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         projects = Project.objects.all()
@@ -17,7 +19,6 @@ class ProjectAPI(APIView):
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
-        print("serializer", serializer)
         if serializer.is_valid():
             project = serializer.save()
             serialized_project = ProjectSerializer(project).data
@@ -47,6 +48,7 @@ class ProjectAPI(APIView):
 
 class TaskLogAPI(APIView):
     serializer_class = TaskLogSerializer
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         task_logs = TaskLog.objects.all()
@@ -84,6 +86,7 @@ class TaskLogAPI(APIView):
 
 class GrievanceAPI(APIView):
     serializer_class = GrievanceSerializer
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         grievances = Grievance.objects.all()
@@ -121,6 +124,7 @@ class GrievanceAPI(APIView):
 
 class UserProjectAPI(APIView):
     serializer_class = UserProjectSerializer
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         user_projects = UserProject.objects.all()
@@ -158,6 +162,7 @@ class UserProjectAPI(APIView):
 
 class AchievementHistoryAPI(APIView):
     serializer_class = AchievementHistorySerializer
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         achievement_histories = AchievementHistory.objects.all()
@@ -199,6 +204,7 @@ class AchievementHistoryAPI(APIView):
 
 class PromotionHistoryAPI(APIView):
     serializer_class = PromotionHistorySerializer
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         promotion_histories = PromotionHistory.objects.all()
@@ -239,6 +245,7 @@ class PromotionHistoryAPI(APIView):
 
 class ServiceRecordAPI(APIView):
     serializer_class = ServiceRecordSerializer
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         service_records = ServiceRecord.objects.all()
@@ -277,6 +284,7 @@ class ServiceRecordAPI(APIView):
 
 class DesignationAPI(APIView):
     serializer_class = DesignationSerializer
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         designations = Designation.objects.all()
