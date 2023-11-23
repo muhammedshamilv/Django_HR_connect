@@ -312,9 +312,6 @@ class GetAllAchievement(generics.ListAPIView):
     queryset = AchievementHistory.objects.all()
     serializer_class = AchievementHistorySerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
-# complete
-
-# in progress
 
 
 class PromotionHistoryAPI(APIView):
