@@ -42,3 +42,15 @@ class EmployeeAcccount(RegisterView):
 
 class UserLogin(LoginView):
     serializer_class = CustomLoginSerializer
+
+    def get_response(self):
+        response = super().get_response()
+        # Modify the response to include user ID
+        if response.status_code == status.HTTP_200_OK:
+            user = self.request.user
+            print("response.data", response.data)
+            response.data.pop('password', None)
+            if user:
+                response.data['user_id'] = user.id
+
+        return response

@@ -15,8 +15,6 @@ class TaskLog(AbstractBaseModel):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField()
-    current_date = models.DateField()
-    updated_date = models.DateField()
 
 
 class ServiceRecord(AbstractBaseModel):

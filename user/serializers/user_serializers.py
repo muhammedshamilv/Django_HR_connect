@@ -31,6 +31,12 @@ class CustomRegisterSerializer(RegisterSerializer):
 class CustomLoginSerializer(LoginSerializer):
     username = None  # Remove the default username field
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        # Remove the password field from the response
+        data.pop('password', None)
+        return data
+
 
 class UserSerializer(RegisterSerializer):
     password2 = None
