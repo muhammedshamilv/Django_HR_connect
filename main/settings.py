@@ -11,11 +11,16 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from datetime import timedelta
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+load_dotenv(f'{BASE_DIR}/.env', verbose=True)
+ENV = os.environ['ENV']
+print("ENV", ENV)
+DEBUG = False if ENV == 'PROD' else True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -116,18 +121,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "main.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "hrproject",
-        "USER": "hrconnectuser",
-        "PASSWORD": "hrconnect",
-        "HOST": "localhost",
-        "PORT": "5432"
+        "NAME": os.environ['NAME'],
+        "USER": os.environ['DBUSER'],
+        "PASSWORD": os.environ['PASSWORD'],
+        "HOST": os.environ['HOST'],
+        "PORT": os.environ['PORT'],
     }
 }
 
