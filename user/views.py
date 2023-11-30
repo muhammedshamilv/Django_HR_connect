@@ -52,5 +52,6 @@ class UserLogin(LoginView):
             response.data.pop('password', None)
             if user:
                 response.data['user_id'] = user.id
+                response.data['is_admin'] = user.is_superuser
 
         return response
